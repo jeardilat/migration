@@ -1,0 +1,30 @@
+### Para construir ecuación
+
+## Extraer datos de hojas de calculo. Se debe pŕocesar la hoja previamente
+
+library(readxl)
+Defuncion_1998 <- read_excel("~/Documentos/NIDIA/datos ecuacion poblamacion/DANE_Mortalidad/Defuncion_1998.xls", sheet = 2)
+View(Defuncion_1998)      
+
+leer <- function(archivo, hoja, rango)
+  {ruta <- str_c("~/Documentos/NIDIA/datos ecuacion poblamacion/DANE_Mortalidad/",archivo,".xls")
+  temp <- read_excel(ruta, sheet = hoja, range = rango)
+    View(temp)
+    return(temp)
+  }
+
+muni<-Defuncion_1998[,1]
+i<-length(muni)
+
+#Nmuni <- for(Defuncion_1998[i,1] in )
+  
+Nmuni <- function(x)
+  {
+   i <- length(x[,1])
+   a <- i-1
+    for(x[i,1] in x) 
+      {
+    if(is.na(x[i,1])) {xx[i] <- x[a,1]} 
+      } }
+
+

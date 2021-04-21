@@ -1,0 +1,258 @@
+########### INSTRUCIONES ANALISSI DE ENCUESTA EXPERIMENTO BIOINGENIERIA - APLICACIONES    ###################
+
+# Se importa datos de hojo de calculo y se renombra y se guarda el nuevo archivo con nombre "datos.Rdata"
+ENCUESTAS.PRUEBAS.PILOTO.DE.APRENDIZAJE.xlsx...datosOrdenados <- read.csv("~/Documentos/Alejandra/ENCUESTAS PRUEBAS PILOTO DE APRENDIZAJE.xlsx - datosOrdenados.csv", header=FALSE)
+View(ENCUESTAS.PRUEBAS.PILOTO.DE.APRENDIZAJE.xlsx...datosOrdenados)
+datos <- ENCUESTAS.PRUEBAS.PILOTO.DE.APRENDIZAJE.xlsx...datosOrdenados
+save(datos, file= "datos.Rdata")
+
+### Extraer datos 
+#Extraer los datos por pregunta. Se toma como referencia eñ numero de fila, 
+#se toma desde segunda columna para no tomar la pregunta
+
+# Estrato, columna 3
+p3 <- t(datos[3,2:51])
+# Frecuencia internet
+p4 <- t(datos[4,2:51])
+# TAbla contingnecia para Estrato (p3) y frecuencia internet (p4)
+table(p3,p4) # frecuencia como variable dependiente
+# Alternativa para crear nombre
+table(p3, p4, dnn = c("Estrato", "Frec. Int"))
+
+##### Organizar tablas
+## Para nombre de escala Likert
+likert<-c("Siempre","Generalmente","Algunas Veces","Rara vez", "No sabe, no responde")
+likert4<-c("Siempre","Generalmente","Algunas Veces","Rara vez")
+
+# Nombre estrato
+estrato<-c("Est. 1","Est. 2","Est. 3","Est. 4","Est. 5")
+#para nombrar filas y colummnas
+p3p11<- table(p3,p11, dnn = c("Estrat","H. Indep"))
+#Se agrega el nombre de las filas con rownames()<-c(,,) y las columnas con colnames()<-c(,,)
+colnames(p3p11)<-c("5-9","10-14","15-19","20-24","25-29",">30")
+rownames(p3p11)<-c("Est. 1","Est. 2","Est. 3","Est. 4","Est. 5")
+# Si es con la escala Likert, en este caso para la pŕegunta p27
+colnames(p3p27)<-likert
+
+
+# para coipiar en hoja de calculo. Se copia y se separa por punto y como
+write.csv2(p3p11)
+
+## Instalar libreria "lsr", para usar funcion cramersV()
+library(lsr)
+# funcion cramersV
+cramersV(p3p4)
+
+####   ANALISIS
+
+#lugar de acceso intenet
+p5 <- t(datos(5,2:51))
+#Prueba Cramers'V'
+p3p5<-table(p3,p5)
+cramersV(p3p5)
+
+### Ejemplo con horas independientes: p11
+
+#para nombrar filas y colummnas
+p3p11<- table(p3,p11, dnn = c("Estrat","H. Indep"))
+#Se agrega el nombre de las filas con rownames()<-c(,,) y las columnas con colnames()<-c(,,)
+colnames(p3p11)<-c("5-9","10-14","15-19","20-24","25-29",">30")
+rownames(p3p11)<-c("Est. 1","Est. 2","Est. 3","Est. 4","Est. 5")
+# para coipiar en hoja de calculo. Se copia y se separa por punto y como
+write.csv2(p3p11)
+
+
+### Graficar conteos
+# se usa palette.colors para una gama de colores optimo, se escogio "set 2" y 
+# se especifico los n=5 primeros para evitar inconsistencia
+
+#Se grafica para cada pregunta, en este caso para la  p11: Horas de estudio independiente
+barplot(p3p11, xlab= "Horas de est. Indep", ylab= "Conteo por estrato", col = palette.colors(n=5,"set 2"), main = "Horas Estudio Independiente - Conteo")
+# Se agrega la leyenda
+legend("topright",inset=c(-.15,0), fill= palette.colors(n=5,"set 2"), legend=rownames(p3p11))
+# Grafica de porcentajes. Se usa prop.table(), con margin=2
+barplot(prop.table(p3p11,margin = 2), xlab= "Horas de est. Indep", ylab= "Conteo por estrato", col = palette.colors(n=5,"set 2"), main = "Horas Estudio Independiente - Conteo")
+legend("topright",inset=c(-.15,0), fill= palette.colors(n=5,"set 2"), legend=c("1","2","3","4","5"))
+
+
+###  GRaficas
+#p5p3 - Lugar de acceso
+barplot(p5p3, xlab= "Lugar de acceso", ylab= "Conteo por estrato", col = palette.colors(n=6,"set 2"), main = "Lugar de acceso - Conteo")
+legend("topright",inset=c(-.0015,0), fill= palette.colors(n=5,"set 2"), legend=rownames(p5p3))
+# porcentaje
+barplot(prop.table(p5p3,margin = 2), xlab= "Lugar de acceso", ylab= "% por estrato", col = palette.colors(n=5,"set 2"), main = "Lugar de acceso - %")
+legend("topright",inset=c(-.00015,0.1), fill= palette.colors(n=5,"set 2"), legend=rownames(p5p3))
+
+#p11p3 - Horas estudio independiente
+barplot(p11p3, xlab= "Horas estudio independiente", ylab= "Conteo por estrato", col = palette.colors(n=6,"set 2"), main = "Horas estudio independiente - Conteo")
+legend("topright",inset=c(-.15,0), fill= palette.colors(n=5,"set 2"), legend=rownames(p11p3))
+# porcentaje
+barplot(prop.table(p11p3,margin = 2), xlab= "Horas estudio independiente", ylab= "% por estrato", col = palette.colors(n=5,"set 2"), main = "Horas estudio independiente - %")
+legend("topright",inset=c(-.00015,0.1), fill= palette.colors(n=5,"set 2"), legend=rownames(p11p3))
+
+#p27p3 -  uso de aplicaciones
+barplot(p27p3, xlab= " Uso de aplicaciones", ylab= "Conteo por estrato", col = palette.colors(n=6,"set 2"), main = " Uso de aplicaciones - Conteo")
+legend("topright",inset=c(-.0015,0), fill= palette.colors(n=5,"set 2"), legend=rownames(p27p3))
+# porcentaje
+barplot(prop.table(p27p3,margin = 2), xlab= " Uso de aplicaciones", ylab= "% por estrato", col = palette.colors(n=5,"set 2"), main = " Uso de aplicaciones - %")
+legend("topright",inset=c(-.00015,0), fill= palette.colors(n=5,"set 2"), legend=rownames(p27p3))
+
+#p26p29 - preferencia por estudiar en grupo: disponibilidad de espacios para estudiar en la universidad:
+p29<-t(datos[29,2:51])
+p29p26 <- table(p29,p26, dnn = c("Espacio en la Universidad","Preferir est. en grupo"))
+colnames(p29p26)<-likert
+barplot(p29p26, xlab= " Uso de aplicaciones", ylab= "Conteo por estrato", col = palette.colors(n=6,"set 2"), main = " Uso de aplicaciones - Conteo")
+legend("topright",inset=c(-.15,0), fill= palette.colors(n=5,"set 2"), legend=rownames(p29p26))
+# porcentaje
+barplot(prop.table(p29p26,margin = 2), xlab= " Uso de aplicaciones", ylab= "% por estrato", col = palette.colors(n=5,"set 2"), main = " Uso de aplicaciones - %")
+legend("topright",inset=c(-.00015,0), fill= palette.colors(n=5,"set 2"), legend=rownames(p29p26))
+
+#p31p3 - Recursos para estudiar - estrato
+p31<-t(datos[31,2:51])
+p31p3 <- table(p31,p3, dnn = c("Recursos para estudiar","Estrato"))
+colnames(p31p3)<-estrato
+rownames(p31p3)<-likert4
+cramersV(p31p3)
+barplot(p31p3, xlab= " Recursos para estudiar", ylab= "Conteo por estrato", col = palette.colors(n=6,"set 2"), main = " Recursos para estudiar - Conteo")
+legend("topright",inset=c(-.15,0), fill= palette.colors(n=5,"set 2"), legend=rownames(p31p3))
+# porcentaje
+barplot(prop.table(p29p26,margin = 2), xlab= " Recursos para estudiar", ylab= "% por estrato", col = palette.colors(n=5,"set 2"), main = " Recursos para estudiar - %")
+legend("topright",inset=c(-.00015,0), fill= palette.colors(n=5,"set 2"), legend=rownames(p31p3))
+
+
+#p26p12 "Preferencia estudio en ind. en grupo", "Porcentaje de est en grupo"
+p12<-t(datos[12,2:51])
+p26p12 <-table(p26,p12,dnn = c("Preferencia estudio en ind. en grupo","Porcentaje de est en grupo"))
+porc25 <- c("25%","50%","75%","100%")
+rownames(p26p12)<-porc25
+colnames(p26p12)<-likert4
+write.csv2(p26p12)
+cramersV(p26p12)
+# grafica
+barplot(p26p12, xlab= " Preferencia estudio en ind. en grupo", ylab= "% de horas est. en grupo", col = palette.colors(n=4,"set 2"), main = " Preferencia estudio  - Conteo")
+legend("topright",inset=c(-.00015,0), fill= palette.colors(n=4,"set 2"), legend=rownames(p26p12))
+# porcentaje
+barplot(prop.table(p26p12, margin = 2), xlab= "Preferencia estudio en ind. en grupo", ylab= "% de horas est. en grupo", col = palette.colors(n=4,"set 2"), main = " Preferencia estudio  - %")
+legend("topright",inset=c(-.00015,0), fill= palette.colors(n=4,"set 2"), legend=rownames(p26p12))
+
+# p4p27 "Frecuencia de uso internet","Uso de aplicaciones"
+p4p27 <- table(p4,p27,dnn = c("Frecuencia de uso internet","Uso de aplicaciones"))
+p4p27
+usoInt <- c("3 días a la semana","4 días a la semana","5 días a la semana", "todos los días")
+rownames(p4p27)<-usoInt
+colnames(p4p27)<-likert
+write.csv2(p4p27)
+cramersV(p4p27)
+# graficas
+barplot(p4p27, xlab= "Frecuencia de uso internet", ylab= "Uso de aplicaciones", col = palette.colors(n=4,"set 2"), main = "Frecuencia de uso internet - Uso de aplicaicones")
+legend("topright",inset=c(-.00015,0), fill= palette.colors(n=4,"set 2"), legend=rownames(p4p27))
+# porcentaje
+barplot(prop.table(p4p27, margin = 2), xlab= "Frecuencia de uso internet", ylab= "Uso de aplicaciones", col = palette.colors(n=4,"set 2"), main = "Frecuencia de uso internet - Uso de aplicaicones")
+legend("topright",inset=c(-.00015,0), fill= palette.colors(n=4,"set 2"), legend=rownames(p4p27))
+
+
+p7<-t(datos[7,2:51])
+p8<-t(datos[8,2:51])
+p9<-t(datos[9,2:51])
+p9
+
+# FAcilidad a uso de dispositivos
+p6p3<-table(p6,p3,dnn = c("Facilidad, 1: facil, 4:dificil","Estrato"))
+ cramersV(p6p3)
+ barplot(p6p3, xlab= "Estrato", ylab= "Facilidad", col = palette.colors(n=4,"set 2"), main = "Facilidad  - Uso de aplicaicones")
+ legend("topright",inset=c(-.00015,0), fill= palette.colors(n=4,"set 2"), legend=rownames(p4p27))
+ # porcentaje
+ barplot(prop.table(p4p27, margin = 2), xlab= "Frecuencia de uso internet", ylab= "Uso de aplicaciones", col = palette.colors(n=4,"set 2"), main = "Frecuencia de uso internet - Uso de aplicaicones")
+ legend("topright",inset=c(-.00015,0), fill= palette.colors(n=4,"set 2"), legend=rownames(p4p27))
+
+
+library("FactoMineR")
+library("factoextra")
+
+##  Analisis de multiples de factores
+ 
+ ### Estrato y recursos
+MCp4_p13p18 <- MCA(p4_p13p18)
+fviz_contrib(MCp4_p13p18, choice = "var", axes = 1)
+fviz_contrib(MCp4_p13p18, choice = "var", axes = 1, top = 15)
+dimdesc(MCp4_p13p18)
+
+p3_p9p14 <- datos[,3]
+p3_p9p14 <- cbind(p3_p9p14, datos[,9:14])
+View(p3_p9p14)
+MCp3_p9p14 <- MCA(p3_p9p14)
+fviz_contrib(MCp3_p9p14, choice = "var", axes = 1)
+dimdesc(MCp3_p9p14)
+fviz_screeplot(MCp3_p9p14, addlabels = TRUE)
+
+fviz_mca_biplot(MCp3_p9p14, 
+                repel = TRUE, # Avoid text overlapping (slow if many point)
+                ggtheme = theme_minimal())
+dimdesc(MCp3_p9p14)
+
+
+p3_p9p14 <- datos[,3]
+p3_p9p14 <- cbind(p3_p9p14, datos[,9:14])
+View(p3_p9p14)
+## sin estrato
+p9p14<-datos[,9:14]
+MCp9p14<-MCA(p9p14)
+fviz_contrib(MCp9p14, choice = "var", axes = 1)
+dimdesc(MCp9p14)
+fviz_screeplot(MCp9p14, addlabels = TRUE)
+
+fviz_mca_biplot(MCp9p14, 
+                repel = TRUE, # Avoid text overlapping (slow if many point)
+                ggtheme = theme_minimal())
+
+   #### frecuencia de uso
+## Pregunta 10
+p4_p9p14 <- datos[,4]
+p4_p9p14 <- cbind(p4_p9p14, datos[,9:14])
+colnames(p4_p9p14)[colnames(p4_p9p14)=="p4_p9p14"]<-"Frecuencia uso de internet" 
+MCp4_p9p14 <-MCA(p4_p9p14)
+fviz_contrib(MCp4_p9p14, choice = "var", axes = 1)
+dimdesc(MCp4_p9p14)
+fviz_screeplot(MCp9p14, addlabels = TRUE)
+## pregunta 12
+p4_p16p21 <- datos[,4]
+p4_p16p21 <- cbind(p4_p16p21, datos[,16:21])
+colnames(p4_p16p21)[colnames(p4_p16p21)=="p4_p16p21"]<-"Frecuencia uso de internet"
+MCp4_p16p21 <-MCA(p4_p16p21)
+fviz_contrib(MCp4_p16p21, choice = "var", axes = 1)
+dimdesc(MCp4_p16p21)
+fviz_screeplot(MCp4_p16p21, addlabels = TRUE)
+
+  ##  Uso de aplicacion y
+## pregunta 10
+p23_p9p14 <- datos[,23]
+p23_p9p14 <- cbind(p23_p9p14, datos[,9:14])
+colnames(p23_p9p14)[colnames(p23_p9p14)=="p23_p9p14"]<-"Uso de aplicaciones"
+MCp23_p9p14 <-MCA(p23_p9p14)
+fviz_contrib(MCp23_p9p14, choice = "var", axes = 1)
+dimdesc(MCp23_p9p14)
+fviz_screeplot(MCp23_p9p14, addlabels = TRUE)
+
+## pregunta 12
+p23_p16p21 <- datos[,23]
+p23_p16p21 <- cbind(p23_p16p21, datos[,16:21])
+colnames(p23_p16p21)[colnames(p23_p16p21)=="p23_p16p21"]<-"Uso de aplicaciones"
+MCp23_p16p21 <-MCA(p23_p16p21)
+fviz_contrib(MCp23_p9p14, choice = "var", axes = 1)
+dimdesc(MCp23_p16p21)
+fviz_screeplot(MCp23_p16p21, addlabels = TRUE) 
+
+  ## facilidad de acceso a dispositivos
+# se necesito construir otra tabla : datos2
+## 
+p3_6_9 <- datos2[,3] # 3: esatrato; celular - comp 6:9
+p3_6_9 <- cbind(p3_6_9, datos2[,6:9])
+colnames(p3_6_9)[colnames(p3_6_9)=="p3_6_9"]<-"Estrato"
+MCp3_6_9 <-MCA(p3_6_9)
+fviz_contrib(MCp3_6_9, choice = "var", axes = 1)
+dimdesc(MCp3_6_9)
+fviz_screeplot(MCp3_6_9, addlabels = TRUE)
+
+
+
+plotellipses(MCp23_p16p21,keepvar=1:8)

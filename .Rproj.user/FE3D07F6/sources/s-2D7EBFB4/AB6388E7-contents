@@ -1,0 +1,265 @@
+#### CONSTRUCCIÓN DE DATOS  ####
+#Se toma del censo la columna 8: departamento, esta columna se llama depto
+depto<-censo_1993[,8]
+
+# Extraer columna "migco2":90, Departamento de residencia 5 años atras
+migco2 <- censo_1993[,"migco2"]
+# Extraer columna "migco4":92, Municipio de residencia 5 años atras
+migco4 <- censo_1993[,"migco4"]
+# Se extrae migración ultimos 5 años "mgrate5":85 estatus de migración 5 años
+mgrate5 <- censo_1993[,"mgrate5"]
+
+# Se extrae "bplco1":65, departamento de nacimiento
+bplco1 <- censo_1993[,"bplco1"]
+# Extraer columna "bplco2":66 municipio de recodificación de nacimiento "birth recode"
+bplco2 <- censo_1993[,"bplco2"]
+# Extraer columna "bplco3":67 nacio en este municipio
+bplco3 <- censo_1993[,"bplco3"]
+# Extraer columna "electrc": 13 electricidad
+electrc <- censo_1993[,"electrc"]
+# Extraer columna "watsup": 14 suminstro de agua 
+watsup <- censo_1993[,"watsup"]
+# Extraer columna "sewage": 15, aguas residuales
+sewage <- censo_1993[,"sewage"]
+# Extrart columna "toilet": 22 baño
+toilet <- censo_1993[,"toilet"]
+
+#se construye la matriz de datos migratorios
+migraCol <- cbind(depto, migco2, migco4, bplco1, bplco2, bplco3, mgrate5, electrc, watsup, sewage, toilet)
+migraCol <- data.frame(migraCol)
+
+####  ANALISIS  ####
+# comparar departamento actual con  el de nacimiento
+# numero de encuestas en Antioquia, variable=5
+sum(migraCol$depto==5)
+# numero de encuestass nacidos en Antioquia
+sum(bplco1==5)
+# numero de encuestas departamento de migración 5 años atras
+sum(migco4==5)
+# numero de encuestas en este municipio
+#sum(bplco2== )
+
+#numero de encuestas nacido en el departamento
+table(bplco1)
+
+### 
+# migración de toda la vida. Contar los nacido en Antioquia que estan en antioquia
+sum(bplco1==5 & depto==5)
+# Total de nacido en antioquia que estan fuera 
+sum(bplco1==5 )-sum(bplco1==5 & depto==5)
+# Total en antioquia que no nacieron en antioquia
+sum(depto==5 & bplco1!=5)
+# si nacio en antioquia contar por cada departamento
+## funcion
+
+## por cada departamento
+# Esta en antioquia pero nacio en otro departamento
+## 1
+sum(depto==5 & bplco1==1)
+## 2
+sum(depto==5 & bplco1==2)
+## 5
+sum(depto==5 & bplco1==5)
+## 8
+sum(depto==5 & bplco1==8)
+## 11
+sum(depto==5 & bplco1==11)
+## 13
+sum(depto==5 & bplco1==13)
+## 15
+sum(depto==5 & bplco1==15)
+## 17
+sum(depto==5 & bplco1==17)
+## 18
+sum(depto==5 & bplco1==18)
+## 19
+sum(depto==5 & bplco1==19)
+## 20
+sum(depto==5 & bplco1==20)
+## 23
+sum(depto==5 & bplco1==23)
+## 25
+sum(depto==5 & bplco1==25)
+## 27 
+sum(depto==5 & bplco1==27)
+## 41
+sum(depto==5 & bplco1==41)
+## 44
+sum(depto==5 & bplco1==44)
+## 47
+sum(depto==5 & bplco1==47)
+## 50
+sum(depto==5 & bplco1==50)
+## 52
+sum(depto==5 & bplco1==52)
+## 54
+sum(depto==5 & bplco1==54)
+## 63
+sum(depto==5 & bplco1==63)
+## 66
+sum(depto==5 & bplco1==66)
+## 68
+sum(depto==5 & bplco1==68)
+## 70
+sum(depto==5 & bplco1==70)
+## 73
+sum(depto==5 & bplco1==73)
+## 76
+sum(depto==5 & bplco1==76)
+## 81
+sum(depto==5 & bplco1==81)
+## 85
+sum(depto==5 & bplco1==85)
+## 86
+sum(depto==5 & bplco1==86)
+## 88
+sum(depto==5 & bplco1==88)
+## 91
+sum(depto==5 & bplco1==91)
+## 94
+sum(depto==5 & bplco1==94)
+## 95
+sum(depto==5 & bplco1==95)
+## 97
+sum(depto==5 & bplco1==97)
+## 99
+sum(depto==5 & bplco1==99)
+
+# Nacio en antioquia y esta en otro departamento
+## 1
+sum(bplco1==5 & depto==1)
+## 2
+sum(bplco1==5 & depto==2)
+## 5
+sum(bplco1==5 & depto==5)
+## 8
+sum(bplco1==5 & depto==8)
+## 11
+sum(bplco1==5 & depto==11)
+## 13
+sum(bplco1==5 & depto==13)
+## 15
+sum(bplco1==5 & depto==15)
+## 17
+sum(bplco1==5 & depto==17)
+## 18
+sum(bplco1==5 & depto==18)
+## 19
+sum(bplco1==5 & depto==19)
+## 20
+sum(bplco1==5 & depto==20)
+## 23
+sum(bplco1==5 & depto==23)
+## 25
+sum(bplco1==5 & depto==25)
+## 27 
+sum(bplco1==5 & depto==27)
+## 41
+sum(bplco1==5 & depto==41)
+## 44
+sum(bplco1==5 & depto==44)
+## 47
+sum(bplco1==5 & depto==47)
+## 50
+sum(bplco1==5 & depto==50)
+## 52
+sum(bplco1==5 & depto==52)
+## 54
+sum(bplco1==5 & depto==54)
+## 63
+sum(bplco1==5 & depto==63)
+## 66
+sum(bplco1==5 & depto==66)
+## 68
+sum(bplco1==5 & depto==68)
+## 70
+sum(bplco1==5 & depto==70)
+## 73
+sum(bplco1==5 & depto==73)
+## 76
+sum(bplco1==5 & depto==76)
+## 81
+sum(bplco1==5 & depto==81)
+## 85
+sum(bplco1==5 & depto==85)
+## 86
+sum(bplco1==5 & depto==86)
+## 88
+sum(bplco1==5 & depto==88)
+## 91
+sum(bplco1==5 & depto==91)
+## 94
+sum(bplco1==5 & depto==94)
+## 95
+sum(bplco1==5 & depto==95)
+## 97
+sum(bplco1==5 & depto==97)
+## 
+sum(bplco1==5 & depto==99)
+
+## Datos de electricidad y agua
+# electrc, electricidad columna 13; watsup, suministro de agua columna 14;
+# sewage, alcantarillado columna 15; toilet, baño columna 22
+
+
+## NOTAS Construcción de funcion para hacer tablas de migración
+## Total de nacidos en antioquia que estan en ant. migraCol[,4]: nacidos, migraCol[,1]: viven. 
+## Operacion logica & ("y") da un vector true, false. Al sumar cada true vale 1
+datosCondicionY <- function (vive,nacio,variable) {
+  valor <- censo_1993[,"deptco"]==vive & censo_1993[,"bplco1"]==nacio
+  table(ifelse(valor==TRUE, censo_1993[,variable], NA))
+  # summary( is.na(ifelse(valor==TRUE, migraCol[,z], NA)) )
+}
+
+CCondMunicipio <-function (vive,nacio,variable) {
+  valor <- censo_1993[,"munico"]==vive & censo_1993[,"bplco2"]==nacio
+  table(ifelse(valor==TRUE, censo_1993[,variable], NA))
+  # summary( is.na(ifelse(valor==TRUE, migraCol[,z], NA)) )
+}
+
+mig5Departamento <-function (vive,estuvo,variable) {
+  valor <- censo_1993[,"deptco"]==vive & censo_1993[,"migco2"]==estuvo
+  valores<-(ifelse(valor==TRUE, censo_1993[,variable], NA))
+ # table(valores)
+  summary(valores)
+  # summary( is.na(ifelse(valor==TRUE, migraCol[,z], NA)) )
+}
+
+datosProcesados <- function(columna1, columna2,valor1,valor2,variable){
+  valor <- censo_1993[,columna1]==valor1 & censo_1993[,columna2]==valor2
+  valores <- ifelse(valor==TRUE, censo_1993[,variable], NA)
+  table(valores)
+}
+
+## Funcion para leer datos de migrantes. 
+datosProcesados2 <- function(columna1, columna2,valor1,valor2,variable){
+  valor <- censo_1993[,columna1]==valor1 & censo_1993[,columna2]==valor2
+  valores <- ifelse(valor==TRUE, censo_1993[,variable], NA)
+  t<-table(valores)
+  s<-summary(valores)
+  tot <- sum(valor)
+  #f<-factor(valores)
+  list(t,s,tot)
+}
+
+datosProcesados2CondNegativa <- function(NOcolumna1, columna2,valor1,valor2,variable){
+  valor <- censo_1993[,NOcolumna1]!=valor1 & censo_1993[,columna2]==valor2
+  valores <- ifelse(valor==TRUE, censo_1993[,variable], NA)
+  t<-table(valores)
+  s<-summary(valores)
+  tot <- sum(valor)
+  #f<-factor(valores)
+  list(t,s,tot)
+}
+
+datosProcesados1CondNegativa <- function(NOcolumna1,valor1,variable){
+  valor <- censo_1993[,NOcolumna1]!=valor1
+  valores <- ifelse(valor!=TRUE, censo_1993[,variable], NA)
+  t<-table(valores)
+  s<-summary(valores)
+  tot <- sum(valor)
+  #f<-factor(valores)
+  list(t,s,tot)
+}
+  
+

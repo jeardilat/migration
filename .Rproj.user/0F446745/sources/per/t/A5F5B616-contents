@@ -1,0 +1,59 @@
+### Para construir ecuación
+
+## Extraer datos de hojas de calculo. Se debe pŕocesar la hoja previamente
+
+## Cargar librerias
+
+library(tidyverse)
+library(readxl)
+Defuncion_1998 <- read_excel("~/Documentos/NIDIA/datos ecuacion poblamacion/DANE_Mortalidad/Defuncion_1998.xls", sheet = 2)
+View(Defuncion_1998)      
+
+leer <- function(archivo, hoja, rango)
+  {ruta <- str_c("~/Documentos/NIDIA/datos ecuacion poblamacion/DANE_Mortalidad/",archivo,".xls")
+  temp <- read_excel(ruta, sheet = hoja, range = rango)
+    View(temp)
+    return(temp)
+}
+
+ppa <- read_excel("~/Documentos/NIDIA/datos ecuacion poblamacion/proyeccion_poblacion_antioquia.xlsx")
+## Uso de funcion para datos
+da1998 <- leer("Defuncion_1998",3,"a1:x511")
+da1999 <- leer("Defuncion_1999",3,"a1:v623")
+da2000 <- leer("Defuncion_2000",3,"a1:w624")
+da2001 <- leer("Defuncion_2001",3,"a1:s615")
+da2002 <- leer("Defuncion_2002",3,"a1:w612")
+da2003 <- leer("Defuncion_2003",3,"a1:w613")
+da2004 <- leer("Defuncion_2004",3,"a1:y612")
+da2005 <- leer("Defuncion_2005",3,"a1:v593")
+da2006 <- leer("Defuncion_2006",3,"a1:s595")
+da2007 <- leer("Defuncion_2007",3,"a1:u600")
+da2008 <- leer("Defuncion_2008_2018",1,"a1:w612")
+da2009 <- leer("Defuncion_2008_2018",2,"a1:w612")
+da2010 <- leer("Defuncion_2008_2018",3,"a1:w612")
+da2011 <- leer("Defuncion_2008_2018",4,"a1:w612")
+da2012 <- leer("Defuncion_2008_2018",5,"a1:w612")
+da2013 <- leer("Defuncion_2008_2018",6,"a1:w612")
+da2015 <- leer("Defuncion_2008_2018",7,"a1:w612")
+da2016 <- leer("Defuncion_2008_2018",8,"a1:w612")
+da2017 <- leer("Defuncion_2008_2018",9,"a1:w612")
+da2018 <- leer("Defuncion_2008_2018",10,"a1:w612")
+da2014 <- leer("Defuncion_2008_2018",11,"a1:w612")
+
+
+
+muni<-Defuncion_1998[,1]
+i<-length(muni)
+
+#Nmuni <- for(Defuncion_1998[i,1] in )
+  
+Nmuni <- function(x)
+  {
+   i <- length(x[,1])
+   a <- i-1
+    for(x[i,1] in x) 
+      {
+    if(is.na(x[i,1])) {xx[i] <- x[a,1]} 
+      } }
+
+

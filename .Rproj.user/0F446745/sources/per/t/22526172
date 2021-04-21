@@ -1,0 +1,32 @@
+{
+    "id": "22526172",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1602983052310.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "expression": "ppa",
+        "caption": "ppa",
+        "totalObservations": 19125,
+        "displayedObservations": 19125,
+        "variables": 312,
+        "cacheKey": "BDC406FF",
+        "object": "ppa",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=ppa&cache_key=BDC406FF&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1602981870,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1602983052310,
+    "read_only": false,
+    "read_only_alternatives": []
+}
