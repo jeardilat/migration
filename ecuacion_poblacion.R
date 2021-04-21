@@ -16,6 +16,8 @@ leer <- function(archivo, hoja, rango) ## para defunciones
     return(temp)
 }
 
+## HOLA GITHUB
+
 ppa <- read_excel("~/Documentos/NIDIA/datos ecuacion poblamacion/proyeccion_poblacion_antioquia.xlsx")
 ## Uso de funcion para datos
 da1998 <- leer("Defuncion_1998",3,"a1:x511")
